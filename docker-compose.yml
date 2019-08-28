@@ -1,0 +1,35 @@
+version: "2.0"
+
+services:
+    server:
+        image: intermediatica/laravel
+        ports:
+            - 80:80
+        volumes:
+            - ".:/var/www/app"
+        environment:
+            - APACHE_DOC_ROOT=/var/www/app/public
+        container_name: iconos
+
+    mysql:
+        image: mysql:latest
+        ports:
+            - 3307:3307
+        environment:
+            MYSQL_ROOT_PASSWORD: "root"
+            MYSQL_DATABASE: "iconos"
+            MYSQL_USER: "root"
+            MYSQL_PASSWORD: "root"
+        volumes:
+          - data_iconos:/var/lib/mysql
+        container_name: mysql
+
+    mailhog:
+        image: mailhog/mailhog
+        ports:
+            - 1025:1025
+            - 8025:8025
+        container_name: mail    
+
+volumes:
+    data_iconos:
